@@ -2,56 +2,59 @@
 
 ## users テーブル
 
-| Column       | Type    | Options                         | 
-| ------------ | ------- | ------------------------------- | 
-| nickname     | string  | null: false                     | 
-| email        | string  | null: false, unique: true       |
-| password     | string  | null: false                     | 
-| name         | string  | null: false                     | 
-| name_reading | string  | null: false                     | 
-| birthday     | integer | null: false                     | 
+| Column             | Type    | Options                         | 
+| ------------------ | ------- | ------------------------------- | 
+| nickname           | string  | null: false                     | 
+| email              | string  | null: false, unique: true       |
+| encrypted_password | string  | null: false                     | 
+| first_name         | string  | null: false                     | 
+| last_name          | string  | null: false                     | 
+| first_name_reading | string  | null: false                     | 
+| last_name_reading  | string  | null: false                     | 
+| birthday           | date    | null: false                     | 
 
 ### Association
-has_many :items
-has_many :purchase_records
+has_many :item
+has_many :purchase_record
 
 ## items テーブル
 
-| Column            | Type       | Options     | 
-| ----------------- | ---------- | ----------- | 
-| item_name         | string     | null: false | 
-| item_explanation  | text       | null: false | 
-| Item_detail       | string     | null: false | 
-| item_delivery     | string     | null: false | 
-| item_price        | string     | null: false | 
-| item_seller(user) | references | null: false | 
+| Column            | Type       | Options                        | 
+| ----------------- | ---------- | -------------------------------| 
+| item_name         | string     | null: false                    | 
+| item_explanation  | text       | null: false                    | 
+| item_detail_id    | integer    | null: false                    | 
+| item_delivery_id  | integer    | null: false                    | 
+| item_price        | integer    | null: false                    | 
+| user              | references | null: false, foreign_key: true | 
 
 ### Association
-belongs to :users
-has_one    :purchase_records
+belongs to :user
+has_one    :purchase_record
 
 ## purchase_records テーブル
 
-| Column           | Type       | Options     | 
-| ---------------- | ---------- | ----------- | 
-| buyer(user)      | references | null: false | 
-| buyer_item(item) | references | null: false | 
+| Column           | Type       | Options                        | 
+| ---------------- | ---------- | ------------------------------ | 
+| user             | references | null: false, foreign_key: true | 
+| item             | references | null: false, foreign_key: true | 
 
 ### Association
-belongs to :users
-belongs to :items
+belongs to :user
+belongs to :item
 has_one    :shipping_address
 
-## shipping_address テーブル
+## shipping_addresses テーブル
 
-| Column                        | Type    | Options     | 
-| ----------------------------- | ------- | ----------- | 
-| postal_code 郵便番号          | string  | null: false | 
-| prefecture 都道府県           | integer | null: false | 
-| city 市町村                   | string  | null: false | 
-| house_number 番地             | string  | null: false | 
-| buliding_name 建物名          | string  |             | 
-| telephone_number 電話番号     | string  | null: false | 
+| Column                    | Type        | Options                        | 
+| ------------------------- | ----------- | ------------------------------ | 
+| postal_code 郵便番号      | string      | null: false                    | 
+| prefecture_id 都道府県    | integer     | null: false                    | 
+| city 市町村               | string      | null: false                    | 
+| house_number 番地         | string      | null: false                    | 
+| buliding_name 建物名      | string      |                                | 
+| telephone_number 電話番号 | string      | null: false                    |
+| purchase_record           | references  | null: false, foreign_key: true | 
 
 ### Association
-belongs to :purchase_records
+belongs to :purchase_record
