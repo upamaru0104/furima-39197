@@ -2,20 +2,22 @@
 
 ## users テーブル
 
-| Column             | Type    | Options                         | 
-| ------------------ | ------- | ------------------------------- | 
-| nickname           | string  | null: false                     | 
-| email              | string  | null: false, unique: true       |
-| encrypted_password | string  | null: false                     | 
-| first_name         | string  | null: false                     | 
-| last_name          | string  | null: false                     | 
-| first_name_reading | string  | null: false                     | 
-| last_name_reading  | string  | null: false                     | 
-| birthday           | date    | null: false                     | 
+| Column             | Type   | Options                         | 
+| ------------------ | ------ | ------------------------------- | 
+| nickname           | string | null: false                     | 
+| email              | string | null: false, unique: true       |
+| encrypted_password | string | null: false                     | 
+| first_name         | string | null: false                     | 
+| last_name          | string | null: false                     | 
+| first_name_reading | string | null: false                     | 
+| last_name_reading  | string | null: false                     | 
+| birthday_year      | date   | null: false                     | 
+| birthday_month     | date   | null: false                     | 
+| birthday_day       | date   | null: false                     | 
 
 ### Association
-has_many :item
-has_many :purchase_record
+has_many :items
+has_many :purchase_records
 
 ## items テーブル
 
@@ -29,7 +31,7 @@ has_many :purchase_record
 | user              | references | null: false, foreign_key: true | 
 
 ### Association
-belongs to :user
+belongs_to :user
 has_one    :purchase_record
 
 ## purchase_records テーブル
@@ -40,8 +42,8 @@ has_one    :purchase_record
 | item             | references | null: false, foreign_key: true | 
 
 ### Association
-belongs to :user
-belongs to :item
+belongs_to :user
+belongs_to :item
 has_one    :shipping_address
 
 ## shipping_addresses テーブル
@@ -57,4 +59,4 @@ has_one    :shipping_address
 | purchase_record           | references  | null: false, foreign_key: true | 
 
 ### Association
-belongs to :purchase_record
+belongs_to :purchase_record
