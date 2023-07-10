@@ -3,6 +3,15 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :destroy]
 
   def index
+    @items = Item.all
+  end
+
+  def new
+    @item = Item.new
+  end
+
+  def create
+    @item = Item.create(item_params)
   end
 
   private
