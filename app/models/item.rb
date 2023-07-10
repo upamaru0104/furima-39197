@@ -14,8 +14,10 @@ class Item < ApplicationRecord
   validates :prefecture_id,      presence: true, numericality: { other_than: 1 , message: "can't be blank"}
   validates :delivery_day_id,    presence: true, numericality: { other_than: 1 , message: "can't be blank"}
   validates :price,              presence: true
+  validates :image,              presence: true
 
   belongs_to :user
   has_one_attached :image
   # has_one    :purchase_record
+
 end
