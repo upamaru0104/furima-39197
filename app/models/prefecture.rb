@@ -53,7 +53,7 @@ class Prefecture < ActiveHash::Base
   ]
 
   include ActiveHash::Associations
-  has_many :item
-  # has_many :shipping_address
+  has_many :items
+  # has_many :shipping_addresses
 end
 
