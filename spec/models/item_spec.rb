@@ -50,6 +50,16 @@ RSpec.describe Item, type: :model do
 	      @item.valid?
 	      expect(@item.errors.full_messages).to include "Price can't be blank"
       end
+      it '価格は、¥300~¥9,999,999の間でないと保存できない'do
+      @item.price = 100
+      @item.valid?
+      expect(@item.errors.full_messages).to include "Price は300~9999999の範囲で入力してください"
+      end
+      it '価格は、半角数値でないと保存できない'do
+      @item.price = '３００'
+      @item.valid?
+      expect(@item.errors.full_messages).to include "Price は半角数値のみ入力してください"
+      end
     end
   end
 end
