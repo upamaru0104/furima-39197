@@ -8,7 +8,7 @@ RSpec.describe Item, type: :model do
   describe '商品出品' do
     context '商品出品できるとき' do
       
-      it 'name、explanation、category_id、condition_id、delivery_charge_id、delivery_day_id、priceが存在すれば登録できる' do
+      it 'image、name、explanation、category_id、condition_id、delivery_charge_id、delivery_day_id、priceが存在すれば登録できる' do
         expect(@item).to be_valid
       end
     end
@@ -60,6 +60,27 @@ RSpec.describe Item, type: :model do
       @item.valid?
       expect(@item.errors.full_messages).to include "Price は半角数値のみ入力してください"
       end
+      it 'prefectureが空では登録できない'do
+      @item.prefecture_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include "Prefecture can't be blank"
+    end
+      it '価格は、9999999円を超えると保存できない'do
+      @item.price = 10000000
+      @item.valid?
+      expect(@item.errors.full_messages).to include "Price は300~9999999の範囲で入力してください"
+      end
+      it 'userが紐付いていなければ出品できない'do
+      @item.user = nil
+      @item.valid?
+      expect(@item.errors.full_messages).to include "User must exist"
+      end
+      it 'imageが空では登録できない' do
+        @item.image = nil
+	      @item.valid?
+	      expect(@item.errors.full_messages).to include "Image can't be blank"
+      end
+
     end
   end
 end
