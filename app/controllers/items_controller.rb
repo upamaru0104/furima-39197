@@ -1,9 +1,10 @@
 class ItemsController < ApplicationController
   # ログインしていないユーザーをログインページの画面に促す
-  before_action :authenticate_user!, only: [:new, :edit, :destroy]
+  before_action :authenticate_user!, only: [:new]
+  # , :edit, :destroy]
 
   def index
-    @items = Item.all
+    # @items = Item.all
   end
 
   def new
