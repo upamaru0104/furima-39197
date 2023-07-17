@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
   # , :edit, :destroy]
 
   def index
-    # @items = Item.all
+    @items = Item.all
   end
 
   def new
