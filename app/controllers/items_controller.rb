@@ -22,7 +22,7 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    @purchase_record = @item.purchase_record
+    # @purchase_record = @item.purchase_record
   end
 
   def edit
