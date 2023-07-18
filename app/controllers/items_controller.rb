@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   # ログインしていないユーザーをログインページの画面に促す
-  before_action :authenticate_user!, only: [:new]
-  # , :edit, :destroy]
+  before_action :authenticate_user!, only: [:new, :edit]
+  # , :destroy]
 
   def index
     @items = Item.order("created_at DESC")
@@ -26,11 +26,16 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    
+    @item = Item.find(params[:id])
   end
 
   def update
-    
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      redirect_to action: :show, id: @item.id
+    else
+      render :edit
+    end
   end
 
   def destroy
