@@ -42,7 +42,7 @@ class ItemsController < ApplicationController
     if item.user == current_user
       item.destroy
     else
-      render :index
+      redirect_to action: :index
     end
     redirect_to action: :index
   end
