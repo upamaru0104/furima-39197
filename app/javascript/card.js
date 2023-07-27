@@ -22,6 +22,9 @@ const pay = () => {
         renderDom.insertAdjacentHTML("beforeend", tokenObj);
         debugger;
       }
+      numberElement.clear();
+      expiryElement.clear();
+      cvcElement.clear();
     });
   });
 };
