@@ -1,5 +1,5 @@
 const pay = () => {
-  const payjp = Payjp('pk_test_***********************')// PAY.JPテスト公開鍵
+  const payjp = Payjp( "pk_test_****" )// PAY.JPテスト公開鍵
   const elements = payjp.elements();
   const numberElement = elements.create('cardNumber');
   const expiryElement = elements.create('cardExpiry');
@@ -8,7 +8,6 @@ const pay = () => {
   numberElement.mount('#card-number');
   expiryElement.mount('#card-expiry');
   cvcElement.mount('#card-cvc');
-
   const submit = document.getElementById("button");
   submit.addEventListener("click", (e) => {
     e.preventDefault();
@@ -20,7 +19,6 @@ const pay = () => {
         const renderDom = document.getElementById("charge-form");
         const tokenObj = `<input value=${token} name='token' type="hidden">`;
         renderDom.insertAdjacentHTML("beforeend", tokenObj);
-        debugger;
       }
       numberElement.clear();
       expiryElement.clear();

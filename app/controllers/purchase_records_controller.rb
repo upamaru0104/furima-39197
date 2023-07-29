@@ -12,6 +12,7 @@ class PurchaseRecordsController < ApplicationController
   def create
     @item = Item.find(params[:item_id])
     @purchase_info = PurchaseAddress.new(purchase_params)
+    binding.pry
     if @purchase_info.valid?
       pay_item
       @purchase_info.save
@@ -28,7 +29,7 @@ class PurchaseRecordsController < ApplicationController
   end
     
   def pay_item
-    Payjp.api_key = "sk_test_***********"  # 自身のPAY.JPテスト秘密鍵を記述しましょう
+    Payjp.api_key = "sk_test_****"  # 自身のPAY.JPテスト秘密鍵を記述しましょう
     Payjp::Charge.create(
     amount: order_params[:price],  # 商品の値段
     card: order_params[:token],    # カードトークン
