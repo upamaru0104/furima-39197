@@ -12,7 +12,6 @@ class PurchaseRecordsController < ApplicationController
   def create
     @item = Item.find(params[:item_id])
     @purchase_info = PurchaseAddress.new(purchase_params)
-    binding.pry
     if @purchase_info.valid?
       pay_item
       @purchase_info.save
