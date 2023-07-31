@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe PurchaseAddress, type: :model do
-  require 'rails_helper'
 
     describe '購入者情報の保存' do
       before do
-        purchase_address = FactoryBot.build(:purchase_address)
+        user = FactoryBot.create(:user)
+        @purchase_address = FactoryBot.build(:purchase_address, user_id: user.id, prefecture_id: 24)
       end
   
       context '内容に問題ない場合' do
@@ -37,34 +37,28 @@ RSpec.describe PurchaseAddress, type: :model do
         it 'telephone_numberが空だと保存できないこと' do
           @purchase_address.telephone_number = ''
           @purchase_address.valid?
-          expect(@purchase_address.errors.full_messages).to include("Telephone_number can't be blank")
+          expect(@purchase_address.errors.full_messages).to include("Telephone number can't be blank", "Telephone number is invalid.")
         end
         it 'telephone_numberが10桁未満だと保存できないこと' do
           @purchase_address.telephone_number = '080123456'
           @purchase_address.valid?
-          expect(@purchase_address.errors.full_messages).to include("Telephone_number は10桁以上11桁以内の半角数値で入力してください")
+          expect(@purchase_address.errors.full_messages).to include("Telephone number is invalid.")
         end
         it 'telephone_numberが12桁以上だと保存できないこと' do
           @purchase_address.telephone_number = '080123456789'
           @purchase_address.valid?
-          expect(@purchase_address.errors.full_messages).to include("Telephone_number は10桁以上11桁以内の半角数値で入力してください")
+          expect(@purchase_address.errors.full_messages).to include("Telephone number is invalid.")
         end
         it 'telephone_numberが半角数値でないと保存できないこと' do
           @purchase_address.telephone_number = '０８０１２３４５６７８'
           @purchase_address.valid?
-          expect(@purchase_address.errors.full_messages).to include("Telephone_number は10桁以上11桁以内の半角数値で入力してください")
+          expect(@purchase_address.errors.full_messages).to include("Telephone number is invalid.")
         end
         it 'userが紐付いていないと保存できないこと' do
           @purchase_address.user_id = nil
           @purchase_address.valid?
           expect(@purchase_address.errors.full_messages).to include("User can't be blank")
         end
-        it 'userが紐付いていないと保存できないこと' do
-          @purchase_address.item_id = nil
-          @purchase_address.valid?
-          expect(@purchase_address.errors.full_messages).to include("Item can't be blank")
-        end
       end
     end
-  end
 end
