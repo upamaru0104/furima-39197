@@ -1,9 +1,17 @@
 class PurchaseRecordsController < ApplicationController
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!, only: :index
 
   def index
     @item = Item.find(params[:item_id])
     @purchase_info = PurchaseAddress.new
+    if @item.user != current_user
+      if @item.purchase_record
+        redirect_to root_path
+      end
+    else
+      redirect_to root_path
+    end
+
   end
 
   def new
@@ -28,7 +36,7 @@ class PurchaseRecordsController < ApplicationController
   end
     
   def pay_item
-    Payjp.api_key = "sk_test_*****"  # 自身のPAY.JPテスト秘密鍵を記述しましょう
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  # 自身のPAY.JPテスト秘密鍵を記述しましょう
     Payjp::Charge.create(
     amount: @item.price,
     card: purchase_params[:token],    # カードトークン
