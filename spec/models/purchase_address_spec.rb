@@ -5,9 +5,7 @@ RSpec.describe PurchaseAddress, type: :model do
 
     describe '購入者情報の保存' do
       before do
-        user = FactoryBot.create(:user)
-        item = FactoryBot.create(:item)
-        purchase_address = FactoryBot.build(:purchase_address, user_id: user.id, item_id: item.id)
+        purchase_address = FactoryBot.build(:purchase_address)
       end
   
       context '内容に問題ない場合' do
@@ -34,7 +32,7 @@ RSpec.describe PurchaseAddress, type: :model do
         it 'prefectureを選択していないと保存できないこと' do
           @purchase_address.prefecture_id = 1
           @purchase_address.valid?
-          expect(@purchase_address.errors.full_messages).to include "Prefecture can't be blank"
+          expect(@purchase_address.errors.full_messages).to include ("Prefecture can't be blank")
         end
         it 'telephone_numberが空だと保存できないこと' do
           @purchase_address.telephone_number = ''
@@ -44,17 +42,17 @@ RSpec.describe PurchaseAddress, type: :model do
         it 'telephone_numberが10桁未満だと保存できないこと' do
           @purchase_address.telephone_number = '080123456'
           @purchase_address.valid?
-          expect(@purchase_address.errors.full_messages).to include("Telephone_number can't be blank")
+          expect(@purchase_address.errors.full_messages).to include("Telephone_number は10桁以上11桁以内の半角数値で入力してください")
         end
         it 'telephone_numberが12桁以上だと保存できないこと' do
           @purchase_address.telephone_number = '080123456789'
           @purchase_address.valid?
-          expect(@purchase_address.errors.full_messages).to include("Telephone_number can't be blank")
+          expect(@purchase_address.errors.full_messages).to include("Telephone_number は10桁以上11桁以内の半角数値で入力してください")
         end
         it 'telephone_numberが半角数値でないと保存できないこと' do
           @purchase_address.telephone_number = '０８０１２３４５６７８'
           @purchase_address.valid?
-          expect(@purchase_address.errors.full_messages).to include("Telephone_number can't be blank")
+          expect(@purchase_address.errors.full_messages).to include("Telephone_number は10桁以上11桁以内の半角数値で入力してください")
         end
         it 'userが紐付いていないと保存できないこと' do
           @purchase_address.user_id = nil
