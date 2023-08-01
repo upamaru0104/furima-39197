@@ -1,11 +1,12 @@
 class PurchaseAddress
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :token
-  attr_accessor :postal_code, :prefecture_id, :city, :house_number, :building_name, :telephone_number, :purchase_record_id
+  attr_accessor :user_id, :item_id, :token, :postal_code, :prefecture_id, :city, :house_number, :building_name, :telephone_number
 
   # ここにバリデーションの処理を書く
   with_options presence: true do
     validates :user_id
+    validates :item_id
+    validates :token
     validates :postal_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
     validates :prefecture_id, numericality: { other_than: 1 , message: "can't be blank"}
     validates :city, format: {with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: "is invalid. Input full-width characters."}
