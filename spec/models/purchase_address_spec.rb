@@ -5,7 +5,8 @@ RSpec.describe PurchaseAddress, type: :model do
     describe '購入者情報の保存' do
       before do
         user = FactoryBot.create(:user)
-        @purchase_address = FactoryBot.build(:purchase_address, user_id: user.id, prefecture_id: 24)
+        @purchase_address = FactoryBot.build(:purchase_address, user_id: user.id)
+        @purchase_address.token = Faker::Alphanumeric.alphanumeric(number: 20)
       end
   
       context '内容に問題ない場合' do
@@ -34,6 +35,16 @@ RSpec.describe PurchaseAddress, type: :model do
           @purchase_address.valid?
           expect(@purchase_address.errors.full_messages).to include ("Prefecture can't be blank")
         end
+        it 'cityが空だと保存できないこと' do
+          @purchase_address.city = ''
+          @purchase_address.valid?
+          expect(@purchase_address.errors.full_messages).to include("City can't be blank")
+        end
+        it 'house_numberが空だと保存できないこと' do
+          @purchase_address.house_number = ''
+          @purchase_address.valid?
+          expect(@purchase_address.errors.full_messages).to include("House number can't be blank")
+        end
         it 'telephone_numberが空だと保存できないこと' do
           @purchase_address.telephone_number = ''
           @purchase_address.valid?
@@ -59,6 +70,16 @@ RSpec.describe PurchaseAddress, type: :model do
           @purchase_address.valid?
           expect(@purchase_address.errors.full_messages).to include("User can't be blank")
         end
+        it 'itemが紐付いていないと保存できないこと' do
+          @purchase_address.item_id = nil
+          @purchase_address.valid?
+          expect(@purchase_address.errors.full_messages).to include("Item can't be blank")
+        end
+        it 'tokenが空だと保存できないこと' do
+          @purchase_address.token = ''
+          @purchase_address.valid?
+          expect(@purchase_address.errors.full_messages).to include("Token can't be blank")
+        end
       end
-    end
+  end
 end
