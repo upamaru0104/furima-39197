@@ -53,12 +53,12 @@ RSpec.describe Item, type: :model do
       it '価格は、¥300~¥9,999,999の間でないと保存できない'do
       @item.price = 100
       @item.valid?
-      expect(@item.errors.full_messages).to include "Price は300~9999999の範囲で入力してください"
+      expect(@item.errors.full_messages).to include "Price は300~9999999の範囲で半角数値で入力してください"
       end
       it '価格は、半角数値でないと保存できない'do
       @item.price = '３００'
       @item.valid?
-      expect(@item.errors.full_messages).to include "Price は半角数値のみ入力してください"
+      expect(@item.errors.full_messages).to include "Price は300~9999999の範囲で半角数値で入力してください"
       end
       it 'prefectureが空では登録できない'do
       @item.prefecture_id = 1
@@ -68,7 +68,7 @@ RSpec.describe Item, type: :model do
       it '価格は、9999999円を超えると保存できない'do
       @item.price = 10000000
       @item.valid?
-      expect(@item.errors.full_messages).to include "Price は300~9999999の範囲で入力してください"
+      expect(@item.errors.full_messages).to include "Price は300~9999999の範囲で半角数値で入力してください"
       end
       it 'userが紐付いていなければ出品できない'do
       @item.user = nil
