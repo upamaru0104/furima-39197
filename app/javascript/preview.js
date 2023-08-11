@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function(){
   if (!itemForm) return null;
 
   // input要素を取得
-  const fileField = document.querySelector('input[type="file"][name="item[image]"]');
+  const fileField = document.querySelector('input[type="file"][name="item[images][]"]');
   // input要素で値の変化が起きた際に呼び出される関数
   fileField.addEventListener('change', function(e){
 
@@ -30,5 +30,14 @@ document.addEventListener('DOMContentLoaded', function(){
     // 生成したHTMLの要素をブラウザに表示させる
     previewWrapper.appendChild(previewImage);
     previewList.appendChild(previewWrapper);
+
+    // 2枚目用のfile_fieldを作成
+    const newFileField = document.createElement('input');
+    newFileField.setAttribute('type', 'file');
+    newFileField.setAttribute('name', 'item[images][]');
+
+    // 生成したfile_fieldを表示
+    const fileFieldsArea = document.querySelector('.click-upload');
+    fileFieldsArea.appendChild(newFileField);
   });
 });
