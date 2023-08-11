@@ -47,6 +47,9 @@ document.addEventListener('DOMContentLoaded', function(){
     // nextDataIndex = 最後のfile_fieldのdata-index + 1
     const nextDataIndex = Number(lastFileField.getAttribute('data-index')) +1;
     newFileField.setAttribute('data-index', nextDataIndex);
+
+    // 追加されたfile_fieldにchangeイベントをセット
+    newFileField.addEventListener("change", changedFileField);
     
 
     // 生成したfile_fieldを表示
