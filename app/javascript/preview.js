@@ -29,10 +29,10 @@ document.addEventListener('DOMContentLoaded', function(){
 
     // 削除ボタンをクリックしたらプレビューとfile_fieldを削除させる
     deleteButton.addEventListener("click", () => deleteImage(dataIndex));
-
   
     // 生成したHTMLの要素をブラウザに表示させる
     previewWrapper.appendChild(previewImage);
+    previewWrapper.appendChild(deleteButton);
     previewList.appendChild(previewWrapper);
   };
 
@@ -67,7 +67,6 @@ document.addEventListener('DOMContentLoaded', function(){
     // 画像の枚数が最大のときに削除ボタンを押した場合、file_fieldを1つ追加する
     const imageCount = document.querySelectorAll(".preview").length;
     if (imageCount == imageLimits - 1) buildNewFileField();
-
   };
 
   // input要素で値の変化が起きた際に呼び出される関数の中身
@@ -81,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function(){
     if (!file) {
       deleteImage(dataIndex);
       return null;
-    }
+    };
     
     const blob = window.URL.createObjectURL(file);
 
@@ -106,5 +105,4 @@ document.addEventListener('DOMContentLoaded', function(){
   const fileField = document.querySelector('input[type="file"][name="item[images][]"]');
   // input要素で値の変化が起きた際に呼び出される関数
   fileField.addEventListener('change', changedFileField);
-
 });
