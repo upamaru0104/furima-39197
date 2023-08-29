@@ -8,11 +8,8 @@
     </h2>
     <div class="item-img-content">
       <%= image_tag @item.images[0] ,class:"item-box-img" %>
-      <div class="other-images">
         <% @item.images[1..-1].each do |image| %>
-          <div class="other-image">
-            <%= image_tag image %>
-          </div>
+          <%= image_tag image ,class:"item-box-img" %>
         <% end %>
       </div>
 
