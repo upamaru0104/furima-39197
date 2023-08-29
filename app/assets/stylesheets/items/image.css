@@ -18,9 +18,15 @@
   border: solid 1px;
   cursor: pointer;
   margin-bottom: 5px;
+  width: 100px;
 }
 
 .main-image {
   height: 200px;
   width: 200px;
+}
+
+.preview-size{
+  height: 150px;
+  width: auto;
 }
