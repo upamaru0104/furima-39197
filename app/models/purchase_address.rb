@@ -7,11 +7,11 @@ class PurchaseAddress
     validates :user_id
     validates :item_id
     validates :token
-    validates :postal_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
-    validates :prefecture_id, numericality: { other_than: 1 , message: "can't be blank"}
-    validates :city, format: {with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: "is invalid. Input full-width characters."}
+    validates :postal_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "はハイフン(-)を含めて入力してください"}
+    validates :prefecture_id, numericality: { other_than: 1 , message: "を入力してください"}
+    validates :city, format: {with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: "はひらがな、カタカナ、漢字のみ入力してください"}
     validates :house_number
-    validates :telephone_number, format: {with: /\A[0-9]{10,11}\z/, message: "is invalid."}
+    validates :telephone_number, format: {with: /\A[0-9]{10,11}\z/, message: "は10桁か11桁で入力してください"}
   end
 
   def save

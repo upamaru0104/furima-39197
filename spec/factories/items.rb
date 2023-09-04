@@ -1,18 +1,19 @@
 FactoryBot.define do
   factory :item do
-    name{Faker::Name.initials(number: 2)}
-    explanation{Faker::Lorem.sentence}
-    category{Category.where.not(id: 1).sample }
-    condition{Condition.where.not(id: 1).sample}
-    delivery_charge{DeliveryCharge.where.not(id: 1).sample}
-    prefecture{Prefecture.where.not(id: 1).sample}
-    delivery_day{DeliveryDay.where.not(id: 1).sample}
-    price{Faker::Number.number(digits: 4)}
+    name{"テストサンプル"}
+    explanation{"テストサンプル説明"}
+    category_id{5}
+    condition_id{4}
+    delivery_charge_id{2}
+    prefecture_id{3}
+    delivery_day_id{2}
+    price{1000}
 
     association :user
 
     after(:build) do |item|
-      item.image.attach(io: File.open('public/images/test_image.png'), filename: 'test_image.png')
+      item.images.attach(io: File.open('public/images/test_image.png'), filename: 'test_image.png')
+      item.images.attach(io: File.open('public/images/test_image2.png'), filename: 'test_image2.png')
     end
   end
 end
